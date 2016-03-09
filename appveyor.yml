@@ -20,5 +20,6 @@ before_build:
 test: off
 
 artifacts:
-  - path: artifacts\bin\**\$(configuration)\*.nupkg
-    name: NugetPackage
+  - path: artifacts\bin\Swashbuckle\$(configuration)\*.nupkg
+  - path: artifacts\bin\Swashbuckle.SwaggerGen\$(configuration)\*.nupkg
+  - path: artifacts\bin\Swashbuckle.SwaggerUi\$(configuration)\*.nupkg
