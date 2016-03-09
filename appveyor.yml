@@ -22,10 +22,9 @@ test: off
 artifacts:
   - path: artifacts\bin\Swashbuckle\$(configuration)\*.nupkg
     name: NugetPackage
-	
+
   - path: artifacts\bin\Swashbuckle.SwaggerGen\$(configuration)\*.nupkg
     name: NugetPackage
-	
+
   - path: artifacts\bin\Swashbuckle.SwaggerUi\$(configuration)\*.nupkg
     name: NugetPackage
-  
