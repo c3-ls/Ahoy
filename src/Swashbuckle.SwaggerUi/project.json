@@ -21,6 +21,6 @@
   },
 
   "scripts": {
-    "postrestore": [ "npm install", "bower install" ] 
+    "postrestore": [ "npm install -g bower", "bower install" ] 
   }
 }
