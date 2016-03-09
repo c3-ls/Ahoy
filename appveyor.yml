@@ -20,5 +20,5 @@ before_build:
 test: off
 
 artifacts:
-  - path: src\artifacts\bin\**\$(configuration)\*.nupkg
+  - path: artifacts\bin\**\$(configuration)\*.nupkg
     name: NugetPackage
