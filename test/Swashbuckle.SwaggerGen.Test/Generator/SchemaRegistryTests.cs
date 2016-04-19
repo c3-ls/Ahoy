@@ -8,7 +8,6 @@ using Newtonsoft.Json.Converters;
 using Xunit;
 using Swashbuckle.SwaggerGen.TestFixtures;
 using Swashbuckle.SwaggerGen.TestFixtures.Extensions;
-using System.Dynamic;
 
 namespace Swashbuckle.SwaggerGen.Generator
 {
@@ -27,10 +26,10 @@ namespace Swashbuckle.SwaggerGen.Generator
         [InlineData(typeof(byte), "string", "byte")]
         [InlineData(typeof(sbyte), "string", "byte")]
         [InlineData(typeof(byte[]), "string", "byte")]
-        [InlineData(typeof(sbyte[]), "string", "byte")]
         [InlineData(typeof(bool), "boolean", null)]
         [InlineData(typeof(DateTime), "string", "date-time")]
         [InlineData(typeof(DateTimeOffset), "string", "date-time")]
+        [InlineData(typeof(Guid), "string", "uuid")]
         [InlineData(typeof(string), "string", null)]
         [InlineData(typeof(Guid), "string", "uuid")]
         public void GetOrRegister_ReturnsPrimitiveSchema_ForSimpleTypes(
@@ -55,21 +54,19 @@ namespace Swashbuckle.SwaggerGen.Generator
         }
 
         [Theory]
-        [InlineData(typeof(int[]), "integer", "int32", null)]
-        [InlineData(typeof(IEnumerable<string>), "string", null, null)]
-        [InlineData(typeof(IEnumerable), null, null, "#/definitions/Object")]
+        [InlineData(typeof(int[]), "integer", "int32")]
+        [InlineData(typeof(IEnumerable<string>), "string", null)]
+        [InlineData(typeof(IEnumerable), "object", null)]
         public void GetOrRegister_ReturnsArraySchema_ForEnumerableTypes(
             Type systemType,
             string expectedItemsType,
-            string expectedItemsFormat,
-            string expectedItemsRef)
+            string expectedItemsFormat)
         {
             var schema = Subject().GetOrRegister(systemType);
 
             Assert.Equal("array", schema.Type);
             Assert.Equal(expectedItemsType, schema.Items.Type);
             Assert.Equal(expectedItemsFormat, schema.Items.Format);
-            Assert.Equal(expectedItemsRef, schema.Items.Ref);
         }
 
         [Fact]
@@ -82,11 +79,35 @@ namespace Swashbuckle.SwaggerGen.Generator
         }
 
         [Fact]
+        public void GetOrRegister_ReturnsObjectSchema_ForDictionarTypesWithEnumKeys()
+        {
+            var schema = Subject().GetOrRegister(typeof(Dictionary<AnEnum, string>));
+
+            Assert.Equal("object", schema.Type);
+            Assert.NotNull(schema.Properties);
+            Assert.Equal("string", schema.Properties["Value1"].Type);
+            Assert.Equal("string", schema.Properties["Value2"].Type);
+            Assert.Equal("string", schema.Properties["X"].Type);
+        }
+
+        [Fact]
         public void GetOrRegister_ReturnsJsonReference_ForComplexTypes()
         {
             var reference = Subject().GetOrRegister(typeof(ComplexType));
 
             Assert.Equal("#/definitions/ComplexType", reference.Ref);
+        }
+
+        [Theory]
+        [InlineData(typeof(object))]
+        [InlineData(typeof(JToken))]
+        [InlineData(typeof(JToken))]
+        public void GetOrRegister_ReturnsEmptyObjectSchema_ForAmbiguousTypes(Type systemType)
+        {
+            var schema = Subject().GetOrRegister(systemType);
+
+            Assert.Equal("object", schema.Type);
+            Assert.Null(schema.Properties);
         }
 
         [Fact]
@@ -108,20 +129,6 @@ namespace Swashbuckle.SwaggerGen.Generator
             Assert.Null(schema.Properties["Property4"].Format);
             Assert.Equal("string", schema.Properties["Property5"].Type);
             Assert.Null(schema.Properties["Property5"].Format);
-        }
-
-        [Theory]
-        [InlineData(typeof(JObject))]
-        [InlineData(typeof(JToken))]
-        public void GetOrRegister_DefinesBaseObjectSchema_ForRuntimeTypes(Type systemType)
-        {
-            var subject = Subject(); 
-
-            subject.GetOrRegister(systemType);
-
-            var schema = subject.Definitions["Object"];
-            Assert.NotNull(schema);
-            Assert.Empty(schema.Properties);
         }
 
         [Fact]
