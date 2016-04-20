@@ -30,7 +30,7 @@ namespace CustomizedUi
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                .UseDefaultConfiguration(args)
+                //.UseDefaultConfiguration(args)
                 .UseIISPlatformHandlerUrl()
                 .UseStartup<Startup>()
                 .UseServer("Microsoft.AspNetCore.Server.Kestrel")
