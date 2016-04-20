@@ -16,7 +16,7 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-20100",
     "Swashbuckle.SwaggerGen": "6.0.0-rc2-*",
     "Swashbuckle.SwaggerUi": "6.0.0-rc2-*",
-    "Microsoft.AspNetCore.Hosting": "1.0.0-rc2-16343"
+    "Microsoft.AspNetCore.Hosting": "1.0.0-rc2-*"
   },
 
   "commands": {
