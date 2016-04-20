@@ -6,13 +6,14 @@
   },
 
   "dependencies": {
-    "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-rc2-20100",
-    "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-20100",
-    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-rc2-20100",
-    "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-20100",
-    "Microsoft.Extensions.Logging": "1.0.0-rc2-20100",
-    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-20100",
-    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-20100",
+    "Microsoft.AspNetCore.Hosting": "1.0.0-rc2-16343",
+    "Microsoft.AspNetCore.IISPlatformHandler": "1.0.0-rc2-*",
+    "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-*",
+    "Microsoft.AspNetCore.Server.Kestrel": "1.0.0-rc2-*",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-*",
+    "Microsoft.Extensions.Logging": "1.0.0-rc2-*",
+    "Microsoft.Extensions.Logging.Console": "1.0.0-rc2-*",
+    "Microsoft.Extensions.Logging.Debug": "1.0.0-rc2-*",
     "Swashbuckle.SwaggerGen": "6.0.0-rc2-*",
     "Swashbuckle.SwaggerUi": "6.0.0-rc2-*"
   },
@@ -22,8 +23,7 @@
   },
 
   "frameworks": {
-    "dnx451": { },
-    "dnxcore50": { }
+    "net451": { }
   },
 
   "exclude": [

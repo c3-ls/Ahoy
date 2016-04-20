@@ -1,5 +1,5 @@
 ﻿{
-  "version": "6.0.0-rc2-20100-2",
+  "version": "6.0.0-rc2-20581",
   "description": "Swashbuckle - Swagger Generator for WebApi (ASP.NET Core)",
   "summary": "Swagger Generator component for next generation of Swashbuckle, targeting ASP.NET Core",
   "authors": [ "Richard Morris" ],
@@ -13,7 +13,6 @@
   },
 
   "frameworks": {
-    "net451": { },
-    "dnxcore50": { }
+    "net451": { }
   }
 }
