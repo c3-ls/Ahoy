@@ -1,5 +1,5 @@
 ﻿{
-  "version": "6.0.0-rc2-20581",
+  "version": "6.0.0-rc2-final-1",
   "description": "Swashbuckle - Swagger UI for WebApi (ASP.NET Core)",
   "summary": "Swagger UI component for next generation of Swashbuckle, targeting ASP.NET Core",
   "authors": [ "Richard Morris" ],
@@ -8,9 +8,9 @@
   "licenseUrl": "https://github.com/domaindrivendev/Swashbuckle/LICENSE",
 
   "dependencies": {
-    "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-*",
-    "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-*",
-    "Microsoft.Extensions.FileProviders.Embedded": "1.0.0-rc2-*"
+    "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.StaticFiles": "1.0.0-rc2-final",
+    "Microsoft.Extensions.FileProviders.Embedded": "1.0.0-rc2-final"
   },
 
   "resource": [ "SwaggerUi", "bower_components/swagger-ui/dist" ],

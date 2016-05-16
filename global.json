@@ -1,9 +1,3 @@
 {
-  "sources": [ "src", "test" ],
-  "sdk": {
-    "version": "1.0.0-rc2-20221",
-    "runtime": "clr",
-    "architecture": "x86"
-  },
   "projects": [ "test/WebSites", "src" ]
 }

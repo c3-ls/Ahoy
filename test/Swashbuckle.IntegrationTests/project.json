@@ -1,8 +1,8 @@
 ﻿{
   "version": "1.0.0-*",
   "dependencies": {
-    "Microsoft.AspNetCore.Mvc.Core": "1.0.0-rc2-20100",
-    "Microsoft.AspNetCore.TestHost": "1.0.0-rc2-20100",
+    "Microsoft.AspNetCore.Mvc.Core": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.TestHost": "1.0.0-rc2-final",
     "xunit": "2.1.0-*",
     "Basic": "1.0.0-*",
     "CustomizedUi": "1.0.0-*",
