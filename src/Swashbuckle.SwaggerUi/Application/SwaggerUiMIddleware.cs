@@ -76,11 +76,21 @@ namespace Swashbuckle.Application
 
         private string GetSwaggerUrl(HttpContext httpContext)
         {
-            StringValues forwardedPath;
-            httpContext.Request.Headers.TryGetValue("X-Forwarded-PathBase", out forwardedPath);
+            List<string> pathParts = new List<string>();
 
-            var swaggerUrl = "/" + string.Join("/", forwardedPath.ToString().Trim('/'), _swaggerUrl.Trim('/'));
-            
+            StringValues forwardedPath;
+            if (httpContext.Request.Headers.TryGetValue("X-Forwarded-PathBase", out forwardedPath) && !string.IsNullOrWhiteSpace(forwardedPath))
+            {
+                pathParts.Add(forwardedPath.ToString().Trim('/'));
+            }
+
+            if (!string.IsNullOrWhiteSpace(_swaggerUrl))
+            {
+                pathParts.Add(_swaggerUrl.Trim('/'));
+            }
+
+            var swaggerUrl = "/" + string.Join("/", pathParts);
+
             return swaggerUrl;
         }
     }

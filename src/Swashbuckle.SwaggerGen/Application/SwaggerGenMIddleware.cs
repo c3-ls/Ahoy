@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
@@ -72,19 +73,23 @@ namespace Swashbuckle.SwaggerGen.Application
 
         private string GetPathBase(HttpContext httpContext)
         {
+            List<string> pathParts = new List<string>();
+            
             StringValues forwardedPath;
-            httpContext.Request.Headers.TryGetValue("X-Forwarded-PathBase", out forwardedPath);
-
-            var basePath = string.IsNullOrEmpty(httpContext.Request.PathBase)
-                ? "/"
-                : httpContext.Request.PathBase.ToString();
-
-            if (!string.IsNullOrEmpty(forwardedPath))
+            if (httpContext.Request.Headers.TryGetValue("X-Forwarded-PathBase", out forwardedPath) && !string.IsNullOrWhiteSpace(forwardedPath))
             {
-                basePath = "/" + forwardedPath.ToString().Trim('/') + basePath;
+                pathParts.Add(forwardedPath.ToString().Trim('/'));
+            }
+            
+            var basePath = httpContext.Request.PathBase.ToString();
+            if (!string.IsNullOrWhiteSpace(basePath))
+            {
+                pathParts.Add(basePath.Trim('/'));
             }
 
-            return basePath;
+            var swaggerUrl = "/" + string.Join("/", pathParts);
+            
+            return swaggerUrl;
         }
     }
 }
