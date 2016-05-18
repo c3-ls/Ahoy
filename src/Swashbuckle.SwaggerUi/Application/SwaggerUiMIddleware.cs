@@ -3,11 +3,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Text;
-using System.Linq;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
+using Microsoft.Extensions.Primitives;
 
 namespace Swashbuckle.Application
 {
@@ -39,7 +38,7 @@ namespace Swashbuckle.Application
             }
 
             var template = _resourceAssembly.GetManifestResourceStream("Swashbuckle.SwaggerUi.SwaggerUi.index.html");
-            var content = AssignPlaceholderValuesTo(template);
+            var content = AssignPlaceholderValuesTo(httpContext, template);
             RespondWithContentHtml(httpContext.Response, content);
         }
 
@@ -51,11 +50,11 @@ namespace Swashbuckle.Application
             return (routeValues != null);
         }
 
-        private Stream AssignPlaceholderValuesTo(Stream template)
+        private Stream AssignPlaceholderValuesTo(HttpContext httpContext, Stream template)
         {
             var placeholderValues = new Dictionary<string, string>
             {
-                { "%(SwaggerUrl)", _swaggerUrl }
+                { "%(SwaggerUrl)", GetSwaggerUrl(httpContext) }
             };
 
             var templateText = new StreamReader(template).ReadToEnd();
@@ -73,6 +72,16 @@ namespace Swashbuckle.Application
             response.StatusCode = 200;
             response.ContentType = "text/html";
             content.CopyTo(response.Body);
+        }
+
+        private string GetSwaggerUrl(HttpContext httpContext)
+        {
+            StringValues forwardedPath;
+            httpContext.Request.Headers.TryGetValue("X-Forwarded-PathBase", out forwardedPath);
+
+            var swaggerUrl = "/" + string.Join("/", forwardedPath.ToString().Trim('/'), _swaggerUrl.Trim('/'));
+            
+            return swaggerUrl;
         }
     }
 }

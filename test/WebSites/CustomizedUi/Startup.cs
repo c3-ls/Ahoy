@@ -16,9 +16,6 @@ namespace CustomizedUi
 
         public void Configure(IApplicationBuilder app)
         {
-            // Add the platform handler to the request pipeline.
-            app.UseIISPlatformHandler();
-
             app.UseStaticFiles();
 
             app.UseMvc();
@@ -30,8 +27,7 @@ namespace CustomizedUi
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                //.UseDefaultConfiguration(args)
-                .UseIISPlatformHandlerUrl()
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                 .Build();

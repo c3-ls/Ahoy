@@ -31,9 +31,6 @@ namespace VirtualDirectory
 
             app.Map("/vdir", subApp =>
             {
-                // Add the platform handler to the request pipeline.
-                subApp.UseIISPlatformHandler();
-
                 // Configure the HTTP request pipeline.
                 subApp.UseStaticFiles();
 
@@ -50,8 +47,7 @@ namespace VirtualDirectory
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                //.UseDefaultConfiguration(args)
-                .UseIISPlatformHandlerUrl()
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                 .Build();

@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.AspNetCore.Routing.Template;
+using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json;
 using Swashbuckle.SwaggerGen.Generator;
 
@@ -40,9 +40,7 @@ namespace Swashbuckle.SwaggerGen.Application
                 return;
             }
 
-            var basePath = string.IsNullOrEmpty(httpContext.Request.PathBase)
-                ? "/"
-                : httpContext.Request.PathBase.ToString();
+            var basePath = GetPathBase(httpContext);
 
             var swagger = _swaggerProvider.GetSwagger(apiVersion, null, basePath);
 
@@ -70,6 +68,23 @@ namespace Swashbuckle.SwaggerGen.Application
             {
                 _swaggerSerializer.Serialize(writer, swagger);
             }
+        }
+
+        private string GetPathBase(HttpContext httpContext)
+        {
+            StringValues forwardedPath;
+            httpContext.Request.Headers.TryGetValue("X-Forwarded-PathBase", out forwardedPath);
+
+            var basePath = string.IsNullOrEmpty(httpContext.Request.PathBase)
+                ? "/"
+                : httpContext.Request.PathBase.ToString();
+
+            if (!string.IsNullOrEmpty(forwardedPath))
+            {
+                basePath = "/" + forwardedPath.ToString().Trim('/') + basePath;
+            }
+
+            return basePath;
         }
     }
 }

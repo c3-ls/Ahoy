@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.SwaggerGen.Generator;
 using Basic.Swagger;
@@ -14,13 +13,11 @@ namespace Basic
 {
     public class Startup
     {
-        private readonly IApplicationEnvironment _appEnv;
         private readonly IHostingEnvironment _hostingEnv;
 
-        public Startup(IHostingEnvironment hostingEnv, IApplicationEnvironment appEnv)
+        public Startup(IHostingEnvironment hostingEnv)
         {
             _hostingEnv = hostingEnv;
-            _appEnv = appEnv;
         }
 
         // This method gets called by a runtime.
@@ -73,9 +70,6 @@ namespace Basic
             loggerFactory.AddConsole();
             loggerFactory.AddDebug();
 
-            // Add the platform handler to the request pipeline.
-            app.UseIISPlatformHandler();
-
             // Configure the HTTP request pipeline.
             app.UseStaticFiles();
 
@@ -92,8 +86,7 @@ namespace Basic
         public static void Main(string[] args)
         {
             var host = new WebHostBuilder()
-                //.UseDefaultConfiguration(args)
-                .UseIISPlatformHandlerUrl()
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                 .Build();
@@ -103,7 +96,7 @@ namespace Basic
 
         private string GetSolutionBasePath()
         {
-            var dir = Directory.CreateDirectory(_appEnv.ApplicationBasePath);
+            var dir = Directory.CreateDirectory(_hostingEnv.ContentRootPath);
             while (dir.Parent != null)
             {
                 if (dir.GetFiles("global.json").Any())

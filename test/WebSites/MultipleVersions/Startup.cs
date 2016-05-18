@@ -46,9 +46,6 @@ namespace MultipleVersions
             loggerFactory.AddConsole();
             loggerFactory.AddDebug();
 
-            // Add the platform handler to the request pipeline.
-            app.UseIISPlatformHandler();
-
             // Configure the HTTP request pipeline.
             app.UseStaticFiles();
 
@@ -65,7 +62,7 @@ namespace MultipleVersions
         {
             var host = new WebHostBuilder()
                 //.UseDefaultConfiguration(args)
-                .UseIISPlatformHandlerUrl()
+                .UseIISIntegration()
                 .UseStartup<Startup>()
                 .UseServer("Microsoft.AspNetCore.Server.Kestrel")
                 .Build();
