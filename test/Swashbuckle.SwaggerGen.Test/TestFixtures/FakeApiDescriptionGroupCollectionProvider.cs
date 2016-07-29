@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Metadata;
 using Moq;
 using Microsoft.AspNetCore.Mvc.DataAnnotations.Internal;
 using Microsoft.AspNetCore.Mvc.Internal;
+using Newtonsoft.Json;
 
 namespace Swashbuckle.SwaggerGen.TestFixtures
 {
@@ -96,7 +97,7 @@ namespace Swashbuckle.SwaggerGen.TestFixtures
             var context = new ApiDescriptionProviderContext(_actionDescriptors);
 
             var options = new MvcOptions();
-            options.OutputFormatters.Add(new JsonOutputFormatter());
+            options.OutputFormatters.Add(new JsonOutputFormatter(new JsonSerializerSettings(), null));
 
             var optionsAccessor = new Mock<IOptions<MvcOptions>>();
             optionsAccessor.Setup(o => o.Value).Returns(options);

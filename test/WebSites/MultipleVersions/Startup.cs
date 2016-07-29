@@ -64,7 +64,7 @@ namespace MultipleVersions
                 //.UseDefaultConfiguration(args)
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseServer("Microsoft.AspNetCore.Server.Kestrel")
+                .UseKestrel()
                 .Build();
 
             host.Run();

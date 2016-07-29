@@ -53,8 +53,9 @@ namespace Swashbuckle.SwaggerGen.Application
             apiVersion = null;
             if (request.Method != "GET") return false;
 
-            var routeValues = _requestMatcher.Match(request.Path);
-            if (routeValues == null || !routeValues.ContainsKey("apiVersion")) return false;
+            RouteValueDictionary routeValues = new RouteValueDictionary();
+            bool result = _requestMatcher.TryMatch(request.Path, routeValues);
+            if (!result || !routeValues.ContainsKey("apiVersion")) return false;
 
             apiVersion = routeValues["apiVersion"].ToString();
             return true;

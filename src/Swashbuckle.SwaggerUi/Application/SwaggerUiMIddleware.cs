@@ -46,8 +46,8 @@ namespace Swashbuckle.Application
         {
             if (request.Method != "GET") return false;
 
-            var routeValues = _requestMatcher.Match(request.Path);
-            return (routeValues != null);
+            var routeValues = new RouteValueDictionary();
+            return _requestMatcher.TryMatch(request.Path, routeValues);
         }
 
         private Stream AssignPlaceholderValuesTo(HttpContext httpContext, Stream template)

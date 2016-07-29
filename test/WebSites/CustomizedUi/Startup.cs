@@ -29,7 +29,7 @@ namespace CustomizedUi
             var host = new WebHostBuilder()
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseServer("Microsoft.AspNetCore.Server.Kestrel")
+                .UseKestrel()
                 .Build();
 
             host.Run();
