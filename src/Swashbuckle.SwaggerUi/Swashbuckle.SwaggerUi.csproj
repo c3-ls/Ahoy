@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>6.0.0-rtm</VersionPrefix>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>Swashbuckle.SwaggerUi</AssemblyName>
+    <PackageId>Swashbuckle.SwaggerUi</PackageId>
+    <PackageTags>Swagger SwaggerUi Documentation Discovery Help WebApi AspNet AspNetCore</PackageTags>
+    <PackageProjectUrl>https://github.com/domaindrivendev/Swashbuckle</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/domaindrivendev/Swashbuckle/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="SwaggerUi\**\*;bower_components\swagger-ui\dist\**\*" Exclude="bin\**;obj\**;**\*.xproj;packages\**;@(EmbeddedResource)" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.StaticFiles" Version="2.0.0" />
+    <PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.Threading.Tasks" />
+    <Reference Include="System.Collections" />
+    <Reference Include="System.Text.Encoding" />
+    <Reference Include="System.Reflection" />
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

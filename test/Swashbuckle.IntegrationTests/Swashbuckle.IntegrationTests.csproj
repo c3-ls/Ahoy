@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>Swashbuckle.IntegrationTests</AssemblyName>
+    <PackageId>Swashbuckle.IntegrationTests</PackageId>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Swashbuckle\Swashbuckle.csproj" />
+    <ProjectReference Include="..\WebSites\Basic\Basic.csproj" />
+    <ProjectReference Include="..\WebSites\CustomizedUi\CustomizedUi.csproj" />
+    <ProjectReference Include="..\WebSites\MultipleVersions\MultipleVersions.csproj" />
+    <ProjectReference Include="..\WebSites\SecuritySchemes\SecuritySchemes.csproj" />
+    <ProjectReference Include="..\WebSites\VirtualDirectory\VirtualDirectory.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" Version="2.0.0" />
+    <PackageReference Include="xunit" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>6.0.0-rtm</VersionPrefix>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>Swashbuckle</AssemblyName>
+    <PackageId>Swashbuckle</PackageId>
+    <PackageTags>Swagger Documentation Discovery Help WebApi AspNet AspNetCore</PackageTags>
+    <PackageProjectUrl>https://github.com/domaindrivendev/Swashbuckle</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/domaindrivendev/Swashbuckle/LICENSE</PackageLicenseUrl>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Swashbuckle.SwaggerGen\Swashbuckle.SwaggerGen.csproj" />
+    <ProjectReference Include="..\Swashbuckle.SwaggerUi\Swashbuckle.SwaggerUi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
