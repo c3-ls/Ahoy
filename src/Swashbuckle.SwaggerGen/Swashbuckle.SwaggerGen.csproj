@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <VersionPrefix>6.0.0-rtm</VersionPrefix>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyName>Swashbuckle.SwaggerGen</AssemblyName>
     <PackageId>Swashbuckle.SwaggerGen</PackageId>
     <PackageTags>Swagger Documentation Discovery Help WebApi AspNet AspNetCore</PackageTags>
@@ -12,19 +12,6 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.0.0" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
-    <Reference Include="System.Runtime" />
-    <Reference Include="System.ComponentModel" />
-    <Reference Include="System.Threading.Tasks" />
-    <Reference Include="System.Collections" />
-    <Reference Include="System.Text.Encoding" />
-    <Reference Include="System.Reflection" />
-    <Reference Include="System.Reflection.Extensions" />
-    <Reference Include="System.Linq" />
-    <Reference Include="System" />
-    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
 
 </Project>
